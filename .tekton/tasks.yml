@@ -11,3 +11,19 @@ spec:
         echo "Cleaning up..."
         rm -rf /workspace/source/*
         echo "Cleanup completed."
+
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: nose-task
+spec:
+  steps:
+    - name: run-nose
+      image: python:3.8
+      script: |
+        #!/bin/bash
+        echo "Running nose tests..."
+        pip install nose
+        nosetests /workspace/source/tests
+        echo "Nose tests completed."
